@@ -23,6 +23,7 @@ class SugarScapeModel(mesa.Model):
         width = 50,
         height = 50,
         initial_population=200,
+        # Agnets have the three attributes: sugar, metabolism, and vision
         endowment_min=25,
         endowment_max=50,
         metabolism_min=1,
@@ -39,6 +40,7 @@ class SugarScapeModel(mesa.Model):
         self.running = True
         ## Create grid
         self.grid = OrthogonalVonNeumannGrid(
+            # Here we set boundaries to the space by tours = FALSE (so agents won't appear at the other side)
             (self.width, self.height), torus=False, random=self.random
         )
         ## Define datacollector, which calculates current Gini coefficient
@@ -46,7 +48,7 @@ class SugarScapeModel(mesa.Model):
             model_reporters = {"Gini": self.calc_gini},
         )
         ## Import sugar distribution from raster, define grid property
-        self.sugar_distribution = np.genfromtxt(Path(__file__).parent / "sugar-map.txt")
+        self.sugar_distribution = np.genfromtxt(Path(__file__).parent / "sugar-map-1.txt")
         self.grid.add_property_layer(
             PropertyLayer.from_data("sugar", self.sugar_distribution)
         )
@@ -70,8 +72,10 @@ class SugarScapeModel(mesa.Model):
     ## Define step: Sugar grows back at constant rate of 1, all agents move, then all agents consume, then all see if they die. Then model calculated Gini coefficient.
     def step(self):
         self.grid.sugar.data = np.minimum(
-            self.grid.sugar.data + 1, self.sugar_distribution
+            self.grid.sugar.data + 2, self.sugar_distribution
         )
+        # We separate these steps because this can simulate things more realistically
+        # Everything happens step by step
         self.agents.shuffle_do("move")
         self.agents.shuffle_do("gather_and_eat")
         self.agents.shuffle_do("see_if_die")
