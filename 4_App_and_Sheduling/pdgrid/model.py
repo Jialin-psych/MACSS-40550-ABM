@@ -9,7 +9,7 @@ class PDModel(mesa.Model):
     ## Define payoffs. Note that model results are sensitive to these! Making DD too high or lowering CD can make systems devolve into defection
     payoff = {("C", "C"): 1, ("C", "D"): 0, ("D", "C"): 1.6, ("D", "D"): 0}
     ## Initialize model, inheriting seed property from parent class
-    def __init__(self, width=50, height=50, order="Simultaneous", payoffs=None, seed=None):
+    def __init__(self, width=50, height=50, order="Simultaneous", payoffs=None, seed=None): # Change easily with seeds
         super().__init__(seed=seed)
         ## Define Acivation order
         self.order = order
@@ -19,6 +19,7 @@ class PDModel(mesa.Model):
         if payoffs is not None:
             self.payoff = payoffs
         ## Create one agent for every cell in model
+        # The random choice didn't randomly assign agents to different positions, but only 1-2500 sequentially
         PDAgent.create_agents(
             self, len(self.grid.all_cells.cells), cell=self.grid.all_cells.cells
         )
