@@ -37,6 +37,24 @@ model_params = {
         "max": 100,
         "step": 1,
     },
+    # Slider for user to set transition threshold
+    "transition_threshold": {
+        "type": "SliderInt",  
+        "value": 3,  # Default time steps 
+        "label": "Transition Threshold (Time Steps)",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+    },
+    # Slider for user to set transition probability
+    "transition_probability": {
+        "type": "SliderFloat",  
+        "value": 0.1,  # Default transition probability
+        "label": "Transition Probability",
+        "min": 0, # when 0, agents never switch groups
+        "max": 1,
+        "step": 0.01,
+    },
     "density": {
         "type": "SliderFloat",
         "value": 0.7,
@@ -89,4 +107,6 @@ page = SolaraViz(
 )
 ## Return page
 page
+    
+
     

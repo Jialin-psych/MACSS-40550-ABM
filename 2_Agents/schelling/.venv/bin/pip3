@@ -1,4 +1,4 @@
-#!/Users/jialinzhou/MACSS-40550-ABM/2_Agents/schelling/.venv/bin/python
+#!/Users/jialinzhou/MACSS-40550-ABM/2_Agents/schelling/.venv/bin/python3.11
 # -*- coding: utf-8 -*-
 import re
 import sys
