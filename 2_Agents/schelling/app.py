@@ -95,13 +95,19 @@ schelling_model = SchellingModel()
 ## Define happiness over time plot
 HappyPlot = make_plot_component({"share_happy": "tab:green"})
 
+## Define type ratio plot
+TypeRatioPlot = make_plot_component({
+    "type_0_count": "tab:red",
+    "type_1_count": "tab:blue",
+})
+
 ## Define space component
 SpaceGraph = make_space_component(agent_portrayal, draw_grid=False)
 
 ## Instantiate page inclusing all components
 page = SolaraViz(
     schelling_model,
-    components=[SpaceGraph, HappyPlot],
+    components=[SpaceGraph, HappyPlot, TypeRatioPlot],
     model_params=model_params,
     name="Schelling Segregation Model",
 )
